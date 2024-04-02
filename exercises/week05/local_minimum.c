@@ -3,6 +3,11 @@
 
 int count_of_local_minimums(int *numbers, int length) {
 
+    if(length<3)
+    {
+        return 0;
+    }
+
     int count = 0;
 
     for(int i = 1; i < length - 1; i++)
