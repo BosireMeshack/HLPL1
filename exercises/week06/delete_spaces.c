@@ -13,7 +13,7 @@ char *delete_spaces(char *original) {
     int i;
     for( i=0; i<len;i++)
     {
-        if(original[i]!=' ')
+        if(!isspace(original[i]))
         {
             result[j++] = original[i];
         }
