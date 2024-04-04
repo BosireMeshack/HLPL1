@@ -7,7 +7,7 @@
 char *delete_spaces(char *original) {
 
     int len = strlen(original);
-    char *result = (char* )malloc((len+1));
+    char *result = (char* )calloc((len+1),sizeof(char));
 
     int j=0;
     int i;
@@ -24,11 +24,11 @@ char *delete_spaces(char *original) {
 
 int main()
 {
-    char line[100];
-    while(gets(line)!=EOF)
+    char line[101];
+    while(gets(line))
     {
         char *space_free = delete_spaces(line);
-        printf("%s", space_free );
+        printf("%s\n", space_free );
         free(space_free);
     }
 
