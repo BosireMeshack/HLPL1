@@ -26,7 +26,11 @@ int main ()
     
     for(int i=0; i<length;i++)
     {
-         maximum=numbers[i];
+         maximum=numbers[i]; 
+        //why are you initializing max with every element in the array?
+        //I dont understand this logic. Wont it make more sense if you initialized max with the first element of the array,
+        //then compare it to the rest of the elements of the array?
+        //maximum = numbers[0]
         if(numbers[i]> maximum)
         {
           maximum = numbers[i];
