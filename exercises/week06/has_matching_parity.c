@@ -6,7 +6,7 @@ int has_matching_parity(int *numbers, int length)
     int count=0;
     for(int i=0; i<length;i++)
     {
-        if(i==numbers[i])
+        if((i%2==0 && numbers[i]%2==0) || (i%2!=0 && numbers[i]%2!=0))
         {
             count++;
         }

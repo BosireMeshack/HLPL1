@@ -35,9 +35,9 @@ int main ()
             break;
         }
 
-        char* result = duplicate_consonants(line);
-        puts(result);
-        free(result);
+        // char* result = duplicate_consonants(line);
+        // puts(result);
+        // free(result);
         
     }
 
