@@ -27,7 +27,7 @@ int main()
 {
 
     int length;
-
+    scanf("%d", &length);
     while(length!=EOF)
     {
         int numbers[length];
