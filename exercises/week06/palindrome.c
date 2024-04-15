@@ -36,8 +36,8 @@ for(int i=0; i<length; i++)
 {
     scanf("%d", &numbers[i]);
 }
-printf("%s", is_palindrome(numbers, length) ? "True":"False");
 
+printf("%s", is_palindrome(numbers, length) ? "True":"False");
 
 return EXIT_SUCCESS;
 }
