@@ -12,8 +12,11 @@ int main (int argc, char *argv[] )
 
     for(int i=0 ; i<=argc; i++)
     {
-        printf("%d %p *%s*\n", i, argv[i], argv[i]);
+        printf("%02d %p *%s*\n", i, argv[i], argv[i]);
     }
+    printf("[%02d] #%p %p\n", argc, &argv[argc], argv[argc]);
+    puts("===");
+
     char **actual = argv;
     while(*actual) // != NULL
     {

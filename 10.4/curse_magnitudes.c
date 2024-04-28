@@ -6,7 +6,7 @@ int main (int argc, char *argv[] )
 {
 
     int max = atoi(argv[1]); // retrieves integers from strings
-    for(int i =2; i<argc;i++)
+    for(int i=2; i<argc;i++)
     {
         if(atoi(argv[i])>max)
         {

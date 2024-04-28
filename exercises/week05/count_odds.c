@@ -29,7 +29,7 @@ if(test_cases > 2 && test_cases < 11)
     // puts("Enter the length of the array\n");
     scanf("%d", &length);
 
-    int numbers[length];
+    int numbers[length]; // 1D array 
     for(int k=0; k<length; k++)
     {
         // puts("Enter the element of the array");
