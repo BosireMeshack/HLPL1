@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+typedef  struct{
+
+char name[31];
+char world[31];
+int height;
+int time;
+
+}
+ROLLERCOASTER;
+
+
+int cmp (const void *a, const void *b)
+{
+    ROLLERCOASTER *left = (ROLLERCOASTER*)a;
+    ROLLERCOASTER *right = (ROLLERCOASTER*)b;
+
+    if(left->time != right->time){
+        return left->time -right->time;
+
+    }
+
+    if(left->height!=right->height)
+    {
+        return -(left->height - right->height);
+    }
+
+    if(left->name != right->name){
+
+        return strcmp(left->name, right->name);
+    }
+
+}
+int main( int argc, char *argv[])
+
+{
+
+    char line[102];
+    ROLLERCOASTER rollercoasters[20];
+
+    int length=0;
+
+    if(argc == 1)
+    {
+        fprintf(stderr, "The first argument is missing\n");
+        return 1;
+    }
+
+
+    FILE *file = fopen(argv[1], "r");
+
+    if(!file)
+    {
+        fprintf(stderr, "The file does not exist\n");
+        return 2;
+    }
+
+
+
+    while(fgets(line, sizeof(line), file)) {
+
+        line[strlen(line) - 1] = '\0';
+
+        strcpy(rollercoasters[length].name,strtok(line, ";"));
+        strcpy(rollercoasters[length].world,strtok(NULL,";"));
+        rollercoasters[length].height = atoi(strtok(NULL, ";"));
+        rollercoasters[length].time = atoi(strtok(NULL, ";"));
+        length++;
+    }
+    fclose(file);
+
+    qsort(rollercoasters, length, sizeof(ROLLERCOASTER), cmp);
+
+    if(argc ==2)
+    {
+        fprintf(stderr, "The second argument is missing\n");
+        return 3;
+    }
+
+    file = fopen(argv[2], "w");
+
+    if(!file) {
+        fprintf(stderr, "The second file cannot be opened\n");
+        return 4;
+    }
+
+    for(int i=0; i<length;i++){
+        fprintf(file, "%s;%s;%d;%d\n", 
+        rollercoasters[i].name, 
+        rollercoasters[i].world,
+        rollercoasters[i].height,
+        rollercoasters[i].time);
+    }
+    fclose(file);
+
+    return EXIT_SUCCESS;
+}
