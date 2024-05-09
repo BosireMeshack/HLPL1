@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+typedef struct element{
+
+    int value;
+    struct element *left;
+    struct element *right;
+
+}ELEMENT;
+
+ELEMENT *create(int value) {
+    ELEMENT *node = (ELEMENT *)
+        calloc(1, sizeof(ELEMENT));
+    node->value = value;
+    return node;
+}
+
+ELEMENT *insert(ELEMENT *parent, int value) {
+    if(value<parent->value)
+    {
+        if(parent->left)
+        {
+            return insert(parent->left, value);
+        }
+        else{
+            parent->left = create(value);
+            return parent->left;
+        }
+    }
+    else if(value>parent->value)
+    {
+        if(parent->right)
+        {
+            return insert(parent->right, value);
+        }
+        else{
+            parent->right = create(value);
+            return parent->right;
+        }
+    }
+    else{
+
+        fprintf(stderr, "%d is already in the tree\n", value);
+        return NULL;
+    }
+}
+
+void inorder(ELEMENT *node) {
+    if(node) {
+    inorder(node->left);
+    printf("%3d", node->value);
+    inorder(node->right);
+    }
+
+}
+
+void clear(ELEMENT *node) {
+    if(node) {
+        clear(node->left);
+        clear(node->right);
+        free(node);
+    }
+}
+
+
+int main()
+{
+    ELEMENT *root = create(5);
+    insert(root, 4);
+    insert(root, 7);
+    insert(root, 6);
+
+    inorder(root);
+    putchar('\n');
+    clear(root);
+
+    return EXIT_SUCCESS;
+}
