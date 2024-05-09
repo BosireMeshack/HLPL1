@@ -1,0 +1,96 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+typedef struct {
+
+    char code[6];
+    char name[51];
+    char theme[31];
+    int bricks;
+}
+LEGO_SET;
+
+int cmp(const void *a, const void *b) {
+
+    LEGO_SET *right = (LEGO_SET*)a;
+    LEGO_SET *left = (LEGO_SET*)b;
+
+    if(right->bricks != left->bricks)
+    {
+        return -(right->bricks- left->bricks);
+    }
+
+    int th = strcmp(right->theme, left->theme);
+    if(th != 0)
+    {
+        int nm = strcmp(right->name, left->name);
+        return nm;
+
+        if(nm!=0)
+        {
+            return strcmp(right->code, left->name);
+        }
+    }
+    
+}
+
+
+int main(int argc, char *argv[])
+{
+    char line[102];
+
+    LEGO_SET legos[20];
+
+    int length = 0;
+
+    if(argc == 1)
+    {
+        fprintf(stderr, "The first argument is missing\n");
+        return 1;
+    }
+
+
+    FILE *file = fopen(argv[1], "r");
+    if(!file)
+    {
+        fprintf(stderr, "The file cannot be opened");
+        return 2;
+    }
+
+
+    while(fgets(line, sizeof(line), file))
+    {
+        line[strlen(line)-1] = '\0';
+        strcpy(legos[length].code,strtok(line, ";"));
+        strcpy(legos[length].name, strtok(NULL, ";"));
+        strcpy(legos[length].theme,strtok(NULL, ";"));
+        legos[length].bricks = atoi(strtok(NULL, ";"));
+        length++;
+    }
+
+    fclose(file);
+
+    qsort(legos, length, sizeof(LEGO_SET), cmp);
+
+    if(argc == 2) {
+        fprintf(stderr, "The second argument is missing\n");
+        return 3;
+    }
+
+    file = fopen(argv[2], "w");
+
+    if(!file) {
+        fprintf(stderr, "The file cannot be opened\n");
+        return 4;
+    }
+
+    for(int i=0; i<length; i++){
+    fprintf(file, "%s;%s;%s;%d\n", legos[i].code, legos[i].name, legos[i].theme, legos[i].bricks);
+    }
+
+    fclose(file);
+
+    return EXIT_SUCCESS;
+
+}
